@@ -16,10 +16,11 @@ import ph.com.cpi.service.UserService;
 public class Servlet extends HttpServlet  {
 	
 	private static final long serialVersionUID = -3254083445269926470L;
+	private String action="",page ="";
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String action = req.getParameter("action");
-		String page = "";
+		action = req.getParameter("action");
+		page = "";
 		
 		if("goToLogin".equals(action)) {
 			page = "pages/LoginPage.jsp";
@@ -30,8 +31,8 @@ public class Servlet extends HttpServlet  {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String action = req.getParameter("action");
-		String page = "";
+		 action = req.getParameter("action");
+		 page = "";
 			
 			try{
 				ApplicationContext applicationContext = 
@@ -61,3 +62,4 @@ public class Servlet extends HttpServlet  {
 	}//do post method
 	
 }//class
+
