@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
+<sqlMap namespace="User">
+
+	<typeAlias alias="UserClass" type="ph.com.cpi.entities.User"/>
+	
+	<resultMap id="getUserMap" class="UserClass">
+		<result column="user_id" 		property="userId"/>
+		<result column="username" 		property="username"/>
+		<result column="password" 		property="password"/>
+		<result column="first_name" 	property="firstName"/>
+		<result column="last_name" 		property="lastName"/>
+		<result column="email" 			property="email"/>
+		<result column="address" 		property="address"/>
+		<result column="contact_no" 	property="contactNumber"/>
+	</resultMap>
+
+	<select id="getUser" resultMap="getUserMap">
+<!-- 		SELECT emp_no, employee_name, job_id 
+		FROM employee_test
+		ORDER BY emp_no -->
+	</select>
+	
+	<insert id="insertUser" parameterClass="UserClass">	
+			INSERT INTO grp_order_users (user_id,
+                             username,
+                             password,
+                             first_name,
+                             last_name,
+                             email,
+                             address,
+                             contact_no)
+                    VALUES (grp_order_id_seq.NEXTVAL,
+                            #username#,
+                            #password#,
+                            #firstName#, 
+                            #lastName#, 
+                            #email#, 
+                            #address#, 
+                            #contactNumber#)
+	</insert>	
+</sqlMap>
