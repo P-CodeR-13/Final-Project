@@ -41,7 +41,29 @@ public class Servlet extends HttpServlet  {
 				RequestDispatcher rd = req.getRequestDispatcher(page);
 				rd.forward(req, resp);		
 			}
+		}else if("login".equals(post)) {
+			String page = "";
+			try{
+				ApplicationContext applicationContext = 
+						new ClassPathXmlApplicationContext("ph/com/cpi/resource/applicationContext.xml");
+				// service for insert, update delete. -- com.cpi.service
+				UserService userService = 
+						(UserService) applicationContext.getBean("userService");
+				// request from EmployeeService
+				if(userService.loginUser(req)) {
+					page = "pages/UserPage.jsp";
+				}
+				else {
+					page = "pages/LoginPage.jsp";
+				}
+			} catch (Exception e){
+				System.out.print(e.getMessage());
+			} finally {
+				RequestDispatcher rd = req.getRequestDispatcher(page);
+				rd.forward(req, resp);		
+			}
 		}
+		
 	
 	}//do post method
 	
