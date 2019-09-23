@@ -24,47 +24,33 @@ public class Servlet extends HttpServlet  {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String post = req.getParameter("action");
-		if("insertRecord".equals(post)) {
-			String page = "";
+		String page = "";
+			
 			try{
 				ApplicationContext applicationContext = 
 						new ClassPathXmlApplicationContext("ph/com/cpi/resource/applicationContext.xml");
 				// service for insert, update delete. -- com.cpi.service
-				UserService userService = 
-						(UserService) applicationContext.getBean("userService");
+				UserService userService = (UserService) applicationContext.getBean("userService");
 				// request from EmployeeService
-				userService.insertUser(req);
-				page = "/pages/NewFile.jsp";
-			} catch (Exception e){
-				System.out.print(e.getMessage());
-			} finally {
-				RequestDispatcher rd = req.getRequestDispatcher(page);
-				rd.forward(req, resp);		
-			}
-		}else if("login".equals(post)) {
-			String page = "";
-			try{
-				ApplicationContext applicationContext = 
-						new ClassPathXmlApplicationContext("ph/com/cpi/resource/applicationContext.xml");
-				// service for insert, update delete. -- com.cpi.service
-				UserService userService = 
-						(UserService) applicationContext.getBean("userService");
-				// request from EmployeeService
-				if(userService.loginUser(req)) {
-					page = "pages/UserPage.jsp";
-				}
-				else {
+				
+				if("insertRecord".equals(post)) {
+					userService.insertUser(req);
 					page = "pages/LoginPage.jsp";
+				}else if("login".equals(post)) {
+					if(userService.loginUser(req)) {
+						page = "pages/UserPage.jsp";
+					}
+					else {
+						page = "pages/LoginPage.jsp";
+					}
 				}
 			} catch (Exception e){
 				System.out.print(e.getMessage());
 			} finally {
 				RequestDispatcher rd = req.getRequestDispatcher(page);
 				rd.forward(req, resp);		
-			}
-		}
-		
-	
+			}//finally
+
 	}//do post method
 	
 }//class
