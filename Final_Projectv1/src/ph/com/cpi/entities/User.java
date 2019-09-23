@@ -7,20 +7,20 @@ public class User {
 	private String lastName;
 	private String email;
 	private String address;
+	private String contactNumber;
+	private Integer userId;
+	private Integer account;
+	
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", email=" + email + ", address=" + address + ", contactNumber=" + contactNumber
 				+ ", userId=" + userId + ", account=" + account + "]";
 	}
-	private Integer contactNumber;
-	private Integer userId;
-	private Integer account;	
-	
-	public Integer getContactNumber() {
+	public String getContactNumber() {
 		return contactNumber;
 	}
-	public void setContactNumber(Integer contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 	public Integer getUserId() {
