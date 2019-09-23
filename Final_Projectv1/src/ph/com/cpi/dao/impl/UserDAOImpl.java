@@ -31,6 +31,20 @@ public class UserDAOImpl implements UserDAO{
 		
 		return listUsers;
 	}
+	
+	@Override
+	public User loginUser(String username, String password) throws SQLException {
+		Map<String, Object> log = new HashMap<String, Object>();
+		log.put("username", username);
+		log.put("password", password);
+		User user = new User();
+		try{
+			user = (User) this.getSqlMapClient().queryForObject("loginUser", log);
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return user;
+	}
 
 	@Override
 	public void insertUser(User user) throws SQLException {
