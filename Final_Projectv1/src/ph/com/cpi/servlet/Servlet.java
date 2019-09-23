@@ -23,7 +23,7 @@ public class Servlet extends HttpServlet  {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String post = req.getParameter("action");
+		String action = req.getParameter("action");
 		String page = "";
 			
 			try{
@@ -33,10 +33,10 @@ public class Servlet extends HttpServlet  {
 				UserService userService = (UserService) applicationContext.getBean("userService");
 				// request from EmployeeService
 				
-				if("insertRecord".equals(post)) {
+				if("insertRecord".equals(action)) {
 					userService.insertUser(req);
 					page = "pages/LoginPage.jsp";
-				}else if("login".equals(post)) {
+				}else if("login".equals(action)) {
 					if(userService.loginUser(req)) {
 						page = "pages/UserPage.jsp";
 					}
