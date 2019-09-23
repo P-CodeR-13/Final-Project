@@ -4,4 +4,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserService {
 	void insertUser(HttpServletRequest request) throws SQLException;
+	boolean loginUser(HttpServletRequest request) throws SQLException;
 }
