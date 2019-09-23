@@ -18,7 +18,14 @@ public class Servlet extends HttpServlet  {
 	private static final long serialVersionUID = -3254083445269926470L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String action = req.getParameter("action");
+		String page = "";
 		
+		if("goToLogin".equals(action)) {
+			page = "pages/LoginPage.jsp";
+		}
+		RequestDispatcher rd = req.getRequestDispatcher(page);
+		rd.forward(req, resp);	
 	}
 	
 	@Override
@@ -37,13 +44,13 @@ public class Servlet extends HttpServlet  {
 					userService.insertUser(req);
 					page = "pages/LoginPage.jsp";
 				}else if("login".equals(action)) {
-					if(userService.loginUser(req)) {
+					if("user".equals(userService.loginUser(req)) ) {
 						page = "pages/UserPage.jsp";
 					}
-					else {
-						page = "pages/LoginPage.jsp";
+					else if("admin".equals(userService.loginUser(req))) {
+						page = "pages/AdminPage.jsp";
 					}
-				}
+				} 
 			} catch (Exception e){
 				System.out.print(e.getMessage());
 			} finally {
@@ -54,4 +61,3 @@ public class Servlet extends HttpServlet  {
 	}//do post method
 	
 }//class
-
