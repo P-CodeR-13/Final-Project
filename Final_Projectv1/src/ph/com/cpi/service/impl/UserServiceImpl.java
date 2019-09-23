@@ -20,6 +20,19 @@ public class UserServiceImpl implements UserService{
 	public void setUserDAO(UserDAO UsersDAO){
 		this.usersDAO = UsersDAO;
 	}
+	@Override
+	public boolean loginUser(HttpServletRequest request) throws SQLException {
+		User user = this.usersDAO.loginUser(request.getParameter("username"), request.getParameter("password"));
+		boolean log;
+		if(user != null) {
+			log = true;
+		}
+		else {
+			log = false;
+		}
+		return log;
+	}
+
 
 	@Override
 	public void insertUser(HttpServletRequest request) throws SQLException {
