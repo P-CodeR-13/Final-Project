@@ -2,7 +2,9 @@ package ph.com.cpi.dao.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ph.com.cpi.dao.UserDAO;
 import ph.com.cpi.entities.User;
@@ -32,6 +34,7 @@ public class UserDAOImpl implements UserDAO{
 		return listUsers;
 	}
 	
+	// login
 	@Override
 	public User loginUser(String username, String password) throws SQLException {
 		Map<String, Object> log = new HashMap<String, Object>();
@@ -66,4 +69,24 @@ public class UserDAOImpl implements UserDAO{
 		}
 	}
 
+	@Override
+	public void updateUser(User user) throws SQLException {
+		try{
+			this.sqlMapClient.startTransaction();
+			this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
+			this.sqlMapClient.startBatch();
+			
+			System.out.println("dao: "+user.getUsername());
+			this.getSqlMapClient().update("updateUser", user);
+			
+			this.sqlMapClient.executeBatch();
+			this.sqlMapClient.getCurrentConnection().commit();
+		
+		} catch (SQLException e){
+			System.out.println(e.getLocalizedMessage());
+			this.sqlMapClient.getCurrentConnection().rollback();
+		}finally{
+			this.sqlMapClient.endTransaction();	
+		}
+	}
 }

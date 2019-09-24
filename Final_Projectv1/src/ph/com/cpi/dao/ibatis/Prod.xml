@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
+<sqlMap namespace="Prod">
+
+	<typeAlias alias="ProductsClass" type="ph.com.cpi.entities.Products"/>
+	
+	<resultMap id="getProductsMap" class="ProductsClass">
+		<result column="product_id" 		property="productId"/>
+		<result column="product_name" 	property="productName"/>
+		<result column="price" 		property="price"/>
+		<result column="stocks" 		property="stocks"/>
+		<result column="image_name"		property="image"/>
+	</resultMap>
+
+	<select id="getProducts" resultMap="getProductsMap">
+		SELECT *
+		FROM grp_order_products
+		ORDER BY product_id
+	</select>
+	
+	<insert id="insertProducts" parameterClass="ProductsClass">
+		INSERT INTO grp_order_products (product_id,
+                             product_name,
+                             price,
+                             stocks,
+                             image_name )
+                    VALUES (grp_order_id2_seq.NEXTVAL,
+                            #productName#,
+                            #price#,
+                            #stocks#,
+                            #image#)
+	</insert>
+	
+	<insert id="deleteProducts" parameterClass="java.lang.Integer">
+		UPDATE grp_order_products
+		SET stocks = 0
+		WHERE product_id = #prodNo#
+	</insert>
+	
+
+	<insert id="updateProducts" parameterClass="ProductsClass">
+		UPDATE grp_order_products
+		SET product_id = #productId#,
+		product_name = #productName#,
+		price = #price#,
+		stocks = #stocks#,
+		image_name = #image#
+		WHERE product_id = #productId#
+	</insert> 
+</sqlMap>
