@@ -12,7 +12,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - Furniture Ecommerce Template</title>
+    <title>Amado - Furniture Ecommerce Template | Home</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="${pageContext.request.contextPath}/img/core-img/favicon.ico">
@@ -23,8 +23,8 @@
 
 </head>
 
-<body onload="<% session.invalidate(); %>">
-<div id="mainDiv">
+<body>
+
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
@@ -50,38 +50,38 @@
             <div class="logo">
                 <a href="javascript:window.location.href=window.location.href"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
             </div>
+            <!-- Amado Nav -->
+            <nav class="amado-nav">
+                <ul>
+                    <li class="active"><a href="${pageContext.request.contextPath}/pages/home.jsp">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/pages/profile.jsp">Profile</a></li>
+                    <li><a href="${pageContext.request.contextPath}/pages/shop.jsp">Shop</a></li>
+                    <li><div class="cart-fav-search mb-100">
+                <a href="${pageContext.request.contextPath}/pages/cart.jsp" class="cart-nav"><img src="${pageContext.request.contextPath}/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
+            </div></li>
+                </ul>
+            </nav>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
-            	<input class="form-control" type="text" name="username" id="username" placeholder="Username"  style="height: 48px;" required>
-            	<input  class="form-control" type="password" name="password" id="password" placeholder="Password"  style="height: 48px;" required>
-            	<br/>
-                <a id="login_btn" class="btn amado-btn mb-15" style="height: 48px;">Login</a>
-                <br/><br/>
-                <a href="${pageContext.request.contextPath}/pages/signup.jsp" class="btn amado-btn active" style="height: 48px;">Sign-up</a>
+                <a href="${pageContext.request.contextPath}/pages/index.jsp" class="btn amado-btn active">Logout</a>
             </div>
-            <!-- Social Button -->
-           <!--  <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div> -->
         </header>
         <!-- Header Area End -->
+
         <!-- Product Catagories Area Start -->
-       <div class="products-catagories-area clearfix">
+        <div class="products-catagories-area clearfix">
             <div class="amado-pro-catagory clearfix" style="position: relative; height: 1098.44px;">
 
-                <!-- Single Catagory --> 
-                <c:forEach var="prod" items="${prodList}">
+                <!-- Single Catagory -->
+               <c:forEach var="prod" items="${prodList}">
 				<div class="single-products-catagory clearfix"  style="position: absolute; left: 0%; top: 0px;">
-                    <a href="${pageContext.request.contextPath}/pages/signup.jsp">
-                        <img src="images/${prod.image}" alt="image"></a>
+                        <img src="images/${prod.image}" alt="image">
                         <!-- Hover Content -->
                         <div class="hover-content">
                             <div class="line"></div>
                             <p>From ${prod.price}</p>
                             <h4>${prod.productName}</h4>
+                            <button class="item" id="item${prod.productId}" value="${prod.productId}">Add to Cart</button>
                         </div>
                 </div>
 				</c:forEach>
@@ -89,7 +89,9 @@
         </div>
         <!-- Product Catagories Area End -->
     </div>
-     <!-- ##### Footer Area Start ##### -->
+    <!-- ##### Main Content Wrapper End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
     <footer class="footer_area clearfix">
         <div class="container">
             <div class="row align-items-center">
@@ -112,10 +114,16 @@
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/pages/index.jsp#username">Login</a>
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/pages/home.jsp">Home</a>
                                         </li>
-                                       <li class="nav-item">
-                                            <a class="nav-link" href="${pageContext.request.contextPath}/pages/signup.jsp">Signup</a>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/pages/profile.jsp">Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/pages/shop.jsp">Shop</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="${pageContext.request.contextPath}/pages/cart.jsp">Cart</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -138,27 +146,15 @@
     <script src="${pageContext.request.contextPath}/js/plugins.js"></script>
     <!-- Active js -->
     <script src="${pageContext.request.contextPath}/js/active.js"></script>
-        
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-</div><!-- Main DIv -->
 </body>
-
-	<script>
-	$(document).ready(function() {
-		//user login
-		$( "#login_btn" ).bind( "click", function() {
-			login();
+<script>
+$(document).ready(function() {
+		$(".item").each(function(){
+			var id = $(this).attr("id");
+			$("#"+id).click(function(){
+				alert(id);
 			});
-		//admin product management
-		$("#btnAdd").bind("click", function(){
-			addRecord();
 		});
-		$("#btnDelete").bind("click", function(){
-			deleteRecord();
-		});
-		$("#btnUpdate").bind("click", function(){
-			updateRecord();
-		});
-	});		
-	</script>
+});
+</script>
 </html>
