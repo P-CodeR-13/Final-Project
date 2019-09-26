@@ -30,30 +30,28 @@ public class ProductServiceImpl implements ProductService{
 		this.productDAO = productDAO;
 	}
 	
-	
+	@Override
 	public void getProducts(HttpServletRequest request) throws SQLException {
 		request.setAttribute("prodList",productDAO.getProducts());
 	}
-
+	@Override
+	public void getProductsAdmin(HttpServletRequest request) throws SQLException {
+		request.setAttribute("prodListAdmin",productDAO.getProductsAdmin());	
+	}
 	@Override
 	public void insertProducts(HttpServletRequest request) throws SQLException {
 		Products prod = setValuesToProd(request);
 		this.productDAO.insertProducts(prod);
 	}
-
 	@Override
 	public void delProducts(HttpServletRequest request) throws SQLException {
-		this.productDAO.delProducts(Integer.parseInt(request.getParameter("prodNo")));
-		
+		this.productDAO.delProducts(Integer.parseInt(request.getParameter("prodNo")));	
 	}
-
 	@Override
 	public void updateProducts(HttpServletRequest request) throws SQLException {
 		Products prod = updateValuesToProd(request);
-		
 		this.productDAO.updateProducts(prod);
 	}
-	
 	private Products setValuesToProd(HttpServletRequest request) {
 		Products prod = new Products();
 		prod.setProductName(request.getParameter("productName"));
@@ -62,7 +60,6 @@ public class ProductServiceImpl implements ProductService{
 		prod.setStocks(Integer.parseInt(request.getParameter("stocks")));
 		return prod;
 	}
-	
 	private Products updateValuesToProd(HttpServletRequest request) {
 		Products prod = new Products();
 		prod.setProductId(Integer.parseInt(request.getParameter("productId")));
@@ -72,5 +69,16 @@ public class ProductServiceImpl implements ProductService{
 		prod.setStocks(Integer.parseInt(request.getParameter("stocks")));
 		return prod;
 	}
-
+	@Override
+	public void checkOut(HttpServletRequest req) throws SQLException {
+		Products prod = updateValuesForCheckOut(req);
+		this.productDAO.updateProductsForCart(prod);
+	}
+	
+	private Products updateValuesForCheckOut(HttpServletRequest request) {
+		Products prod = new Products();
+		prod.setProductId(Integer.parseInt(request.getParameter("productId")));
+		prod.setStocks(Integer.parseInt(request.getParameter("quantity")));
+		return prod;
+	}
 }

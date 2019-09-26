@@ -14,14 +14,14 @@
 	-yellow: #ffc107; -
 	-green: #28a745; -
 	-teal: #20c997; -
-	-cyan: #17a2b8; -
+	-cyan: #ffb710; -
 	-white: #fff; -
 	-gray: #6c757d; -
 	-gray-dark: #343a40; -
 	-primary: #007bff; -
 	-secondary: #6c757d; -
 	-success: #28a745; -
-	-info: #17a2b8; -
+	-info: #ffb710; -
 	-warning: #ffc107; -
 	-danger: #dc3545; -
 	-light: #f8f9fa; -
@@ -2432,14 +2432,14 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-info {
 	color: #fff;
-	background-color: #17a2b8;
-	border-color: #17a2b8
+	background-color: #ffb710;
+	border-color: #ffb710
 }
 
 .btn-info:hover {
 	color: #fff;
-	background-color: #138496;
-	border-color: #117a8b
+	background-color: #ffb710;
+	border-color: #ffb710
 }
 
 .btn-info.focus, .btn-info:focus {
@@ -2448,14 +2448,14 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-info.disabled, .btn-info:disabled {
 	color: #fff;
-	background-color: #17a2b8;
-	border-color: #17a2b8
+	background-color: #ffb710;
+	border-color: #ffb710
 }
 
 .btn-info:not (:disabled ):not (.disabled ).active, .btn-info:not (:disabled
 	):not (.disabled ):active, .show>.btn-info.dropdown-toggle {
 	color: #fff;
-	background-color: #117a8b;
+	background-color: #ffb710;
 	border-color: #10707f
 }
 
@@ -2715,16 +2715,16 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
 .btn-outline-info {
-	color: #17a2b8;
+	color: #ffb710;
 	background-color: transparent;
 	background-image: none;
-	border-color: #17a2b8
+	border-color: #ffb710
 }
 
 .btn-outline-info:hover {
 	color: #fff;
-	background-color: #17a2b8;
-	border-color: #17a2b8
+	background-color: #ffb710;
+	border-color: #ffb710
 }
 
 .btn-outline-info.focus, .btn-outline-info:focus {
@@ -2732,7 +2732,7 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
 .btn-outline-info.disabled, .btn-outline-info:disabled {
-	color: #17a2b8;
+	color: #ffb710;
 	background-color: transparent
 }
 
@@ -2740,8 +2740,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 	.btn-outline-info:not (:disabled ):not (.disabled ):active, .show>.btn-outline-info.dropdown-toggle
 	{
 	color: #fff;
-	background-color: #17a2b8;
-	border-color: #17a2b8
+	background-color: #ffb710;
+	border-color: #ffb710
 }
 
 .btn-outline-info:not (:disabled ):not (.disabled ).active:focus,
@@ -4758,13 +4758,13 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .badge-info {
 	color: #fff;
-	background-color: #17a2b8
+	background-color: #ffb710
 }
 
 .badge-info[href]:focus, .badge-info[href]:hover {
 	color: #fff;
 	text-decoration: none;
-	background-color: #117a8b
+	background-color: #ffb710
 }
 
 .badge-warning {
@@ -6035,12 +6035,12 @@ a.bg-success:focus, a.bg-success:hover, button.bg-success:focus, button.bg-succe
 }
 
 .bg-info {
-	background-color: #17a2b8 !important
+	background-color: #ffb710 !important
 }
 
 a.bg-info:focus, a.bg-info:hover, button.bg-info:focus, button.bg-info:hover
 	{
-	background-color: #117a8b !important
+	background-color: #ffb710 !important
 }
 
 .bg-warning {
@@ -6140,7 +6140,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover
 }
 
 .border-info {
-	border-color: #17a2b8 !important
+	border-color: #ffb710 !important
 }
 
 .border-warning {
@@ -8544,11 +8544,11 @@ a.text-success:focus, a.text-success:hover {
 }
 
 .text-info {
-	color: #17a2b8 !important
+	color: #ffb710 !important
 }
 
 a.text-info:focus, a.text-info:hover {
-	color: #117a8b !important
+	color: #ffb710 !important
 }
 
 .text-warning {
@@ -8686,7 +8686,7 @@ a.text-dark:focus, a.text-dark:hover {
 .invoice header {
     padding: 10px 0;
     margin-bottom: 20px;
-    border-bottom: 1px solid #3989c6
+    border-bottom: 1px solid #ffb710
 }
 
 .invoice .company-details {
@@ -8732,7 +8732,7 @@ a.text-dark:focus, a.text-dark:hover {
 
 .invoice main .notices {
     padding-left: 6px;
-    border-left: 6px solid #3989c6
+    border-left: 6px solid #fbb710
 }
 
 .invoice main .notices .notice {
@@ -8773,7 +8773,7 @@ a.text-dark:focus, a.text-dark:hover {
 .invoice table .no {
     color: #fff;
     font-size: 1.6em;
-    background: #3989c6
+    background: #ffb710
 }
 
 .invoice table .unit {
@@ -8781,7 +8781,7 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .invoice table .total {
-    background: #3989c6;
+    background: #ffb710;
     color: #fff
 }
 
@@ -8804,9 +8804,9 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .invoice table tfoot tr:last-child td {
-    color: #3989c6;
+    color: #ffb710;
     font-size: 1.4em;
-    border-top: 1px solid #3989c6
+    border-top: 1px solid #ffb710
 }
 
 .invoice table tfoot tr td:first-child {
@@ -8821,20 +8821,21 @@ a.text-dark:focus, a.text-dark:hover {
     padding: 8px 0
 }
 
-@media print {
-    .invoice {
-        font-size: 11px!important;
-        overflow: hidden!important
-    }
-
-    .invoice footer {
-        position: absolute;
-        bottom: 10px;
-        page-break-after: always
-    }
-
-    .invoice>div:last-child {
-        page-break-before: always
-    }
+.my-custom-scrollbar {
+position: relative;
+height: 450px;
+overflow: auto;
 }
+.table-wrapper-scroll-y {
+display: block;
+}
+
+ @media print {
+ #print {
+    display: none;
+  } 
+  #btn2 {
+    display: none;
+  }
+  }
 /*# sourceMappingURL=bootstrap.min.css.map */

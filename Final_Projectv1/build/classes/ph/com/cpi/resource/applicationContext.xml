@@ -29,4 +29,11 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 	<bean class="ph.com.cpi.service.impl.UserServiceImpl" id="userService" depends-on="userDAO">
 		<property name="userDAO" ref="userDAO"></property>
 	</bean>
+	<!-- Products bean -->
+	<bean class="ph.com.cpi.dao.impl.ProductsDAOImpl" id="productDAO" depends-on="sqlMapClient">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean class="ph.com.cpi.service.impl.ProductServiceImpl" id="productService" depends-on="productDAO">
+		<property name="productDAO" ref="productDAO"></property>
+	</bean>
 </beans>

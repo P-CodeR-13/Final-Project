@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ph.com.cpi.service.ProductService;
-
 import ph.com.cpi.service.UserService;
 
 public class Servlet extends HttpServlet  {
@@ -22,21 +21,62 @@ public class Servlet extends HttpServlet  {
 	private String action="",page ="";
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try{
-			ApplicationContext applicationContext = 
-					new ClassPathXmlApplicationContext("ph/com/cpi/resource/applicationContext.xml");
-			UserService userService = (UserService) applicationContext.getBean("userService");
-			ProductService productService = (ProductService) applicationContext.getBean("productService");
-	
-			productService.getProducts(req);
-			page = "pages/index.jsp";
-
-		} catch (Exception e){
+		action = req.getParameter("action");
+		ApplicationContext applicationContext = 
+				new ClassPathXmlApplicationContext("ph/com/cpi/resource/applicationContext.xml");
+		UserService userService = (UserService) applicationContext.getBean("userService");
+		ProductService productService = (ProductService) applicationContext.getBean("productService");
+		page="";
+		HttpSession session;
+		try {
+			if("home".equals(action)) {
+				productService.getProducts(req);
+				page = "pages/home.jsp";
+			}
+			else if("homeAfterPrint".equals(action)) {
+				productService.getProducts(req);
+				session = req.getSession();
+				session.removeAttribute("sessionList");
+				page = "pages/home.jsp";
+			}
+			else if("profile".equals(action)) {
+				page = "pages/profile.jsp";
+			}
+			else if("shop".equals(action)) {
+				productService.getProducts(req);
+				page = "pages/shop.jsp";
+			}
+			else if("cart".equals(action)) {
+				page = "pages/cart.jsp";
+			}
+			else if("logout".equals(action)) {
+				session = req.getSession();
+				productService.getProducts(req);
+				session.invalidate();
+				page = "pages/index.jsp";
+			}
+			else if("signup".equals(action)) {
+				page = "pages/signup.jsp";
+			}
+			else if("initProducts".equals(action)){
+				productService.getProducts(req);
+				page = "pages/products.jsp";
+			}
+			else {
+				session = req.getSession();
+				if(session.getAttribute("id") == null) {
+					page = "pages/index.jsp";
+				}else {
+					productService.getProducts(req);
+					page = "pages/home.jsp";
+				}
+			}
+		} catch (Exception e) {
 			System.out.print(e.getMessage());
 		} finally {
 			RequestDispatcher rd = req.getRequestDispatcher(page);
-			rd.forward(req, resp);		
-		}//finally
+			rd.forward(req, resp);
+		}
 	}
 	
 	@Override
@@ -48,40 +88,64 @@ public class Servlet extends HttpServlet  {
 			try{
 				ApplicationContext applicationContext = 
 						new ClassPathXmlApplicationContext("ph/com/cpi/resource/applicationContext.xml");
-				// service for insert, update delete. -- com.cpi.service
 				UserService userService = (UserService) applicationContext.getBean("userService");
 				ProductService productService = (ProductService) applicationContext.getBean("productService");
-				// request from EmployeeService
 				
 				if("insertRecord".equals(action)) {
-					userService.insertUser(req);
+					String str = userService.insertUser(req);
+					if("no".equals(str)) {
 						page = "pages/index.jsp";
-				}else if("login".equals(action)) {
+					}
+					else {
+						page = "pages/signup.jsp";
+					}
+					
+				}
+				else if("login".equals(action)) {
 					if("user".equals(userService.loginUser(req)) ) {
 						productService.getProducts(req);
 						page = "pages/home.jsp";
 					}
 					else if("admin".equals(userService.loginUser(req))) {
-						productService.getProducts(req);
+						productService.getProductsAdmin(req);
 						page = "pages/admin.jsp";
 					}
-				}else if("insertProduct".equals(action)){
+					else if("invalid".equals(userService.loginUser(req))) {
+						page = "pages/index.jsp";
+					}
+				}
+				else if("insertProduct".equals(action)){
 					productService.insertProducts(req);
+					productService.getProductsAdmin(req);
+					page ="pages/admin.jsp";
 				}
 				else if("updateProduct".equals(action)){
 					productService.updateProducts(req);
+					productService.getProductsAdmin(req);
+					page ="pages/admin.jsp";
 				}
 				else if("deleteProduct".equals(action)){
 					productService.delProducts(req);
-				} else if("updateUser".equals(action)) {
-					System.out.println("servlet: "+req.getParameter("username"));
+					productService.getProductsAdmin(req);
+					page ="pages/admin.jsp";
+				}
+				else if("updateUser".equals(action)) {
 					userService.updateUser(req);
+					page = "pages/profile.jsp";
+				}
+				else if("addtocart".equals(action)) {
+					userService.addToCart(req);
+					page ="pages/cart.jsp";
+				}
+				else if("checkout".equals(action)) {
+					productService.checkOut(req);
+					page ="pages/receipt.jsp";
 				}
 			} catch (Exception e){
 				System.out.print(e.getMessage());
 			} finally {
 				RequestDispatcher rd = req.getRequestDispatcher(page);
-				rd.forward(req, resp);		
+				rd.forward(req, resp);	
 			}//finally
 
 	}//do post method

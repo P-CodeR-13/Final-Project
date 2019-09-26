@@ -6,6 +6,7 @@
 	
 	<resultMap id="getUserMap" class="UserClass">
 		<result column="user_id" 		property="userId"/>
+		<result column="account_type" 	property="account"/>
 		<result column="username" 		property="username"/>
 		<result column="password" 		property="password"/>
 		<result column="first_name" 	property="firstName"/>
@@ -14,12 +15,6 @@
 		<result column="address" 		property="address"/>
 		<result column="contact_no" 	property="contactNumber"/>
 	</resultMap>
-
-	<select id="getUser" resultMap="getUserMap">
-<!-- 		SELECT emp_no, employee_name, job_id 
-		FROM employee_test
-		ORDER BY emp_no -->
-	</select>
 	
 	<insert id="insertUser" parameterClass="UserClass">	
 			INSERT INTO grp_order_users (user_id,
@@ -38,5 +33,24 @@
                             #email#, 
                             #address#, 
                             #contactNumber#)
-	</insert>	
+	</insert>
+	
+	<select id="loginUser" resultMap="getUserMap" parameterClass="java.util.HashMap">
+		SELECT *
+		FROM grp_order_users
+		WHERE username = #username# AND password = #password#
+	</select>
+	
+	<insert id="updateUser" parameterClass="UserClass">
+		UPDATE grp_order_users
+		SET username = #username#,
+		password = #password#,
+		first_name = #firstName#,
+		last_name = #lastName#,
+		email = #email#,
+		address = #address#,
+		contact_no = #contactNumber#
+		WHERE user_id = #userId#
+	</insert>
+	
 </sqlMap>

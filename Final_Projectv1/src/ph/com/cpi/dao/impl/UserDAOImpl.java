@@ -22,17 +22,17 @@ public class UserDAOImpl implements UserDAO{
 		this.sqlMapClient = sqlMapClient;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<User> getUsers() throws SQLException {
-		List<User> listUsers = new ArrayList<>();
-		try{
-			listUsers = this.getSqlMapClient().queryForList("getUsers");
-		} catch (SQLException e){
-			System.out.println(e.getMessage());
-		}
-		
-		return listUsers;
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<User> getUsers() throws SQLException {
+//		List<User> listUsers = new ArrayList<>();
+//		try{
+//			listUsers = this.getSqlMapClient().queryForList("getUsers");
+//		} catch (SQLException e){
+//			System.out.println(e.getMessage());
+//		}
+//		
+//		return listUsers;
+//	}
 	
 	// login
 	@Override
@@ -50,7 +50,8 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public void insertUser(User user) throws SQLException {
+	public boolean insertUser(User user) throws SQLException {
+		boolean userExist = false;
 		try{
 			this.sqlMapClient.startTransaction();
 			this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
@@ -64,9 +65,11 @@ public class UserDAOImpl implements UserDAO{
 		} catch (SQLException e){
 			System.out.println(e.getLocalizedMessage());
 			this.sqlMapClient.getCurrentConnection().rollback();
+			userExist = true;
 		}finally{
-			this.sqlMapClient.endTransaction();	
+			this.sqlMapClient.endTransaction();
 		}
+		return userExist;
 	}
 
 	@Override
@@ -76,7 +79,6 @@ public class UserDAOImpl implements UserDAO{
 			this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
 			this.sqlMapClient.startBatch();
 			
-			System.out.println("dao: "+user.getUsername());
 			this.getSqlMapClient().update("updateUser", user);
 			
 			this.sqlMapClient.executeBatch();

@@ -31,6 +31,16 @@ public class ProductsDAOImpl implements ProductsDAO{
 		
 		return listProd;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Products> getProductsAdmin() throws SQLException {
+		List<Products> listProd = new ArrayList<>();
+		try{
+			listProd = this.getSqlMapClient().queryForList("getProductsAdmin");
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return listProd;
+	}
 
 	@Override
 	public void insertProducts(Products products) throws SQLException {
@@ -88,6 +98,26 @@ public class ProductsDAOImpl implements ProductsDAO{
 		} finally{
 			this.sqlMapClient.endTransaction();
 		}
+	}
+
+	@Override
+	public void updateProductsForCart(Products products) throws SQLException {
+		try{
+			this.sqlMapClient.startTransaction();
+			this.sqlMapClient.getCurrentConnection().setAutoCommit(false);
+			this.sqlMapClient.startBatch();
+	
+			this.getSqlMapClient().update("updateProductsForCart", products);
+			
+			this.sqlMapClient.executeBatch();
+			this.sqlMapClient.getCurrentConnection().commit();
+		} catch(SQLException e){
+			System.out.println(e.getMessage());
+			this.getSqlMapClient().getCurrentConnection().rollback();
+		} finally{
+			this.sqlMapClient.endTransaction();
+		}
+		
 	}
 
 }

@@ -5,7 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import ph.com.cpi.entities.User;
 
 public interface UserService {
-	void insertUser(HttpServletRequest request) throws SQLException;
+	String insertUser(HttpServletRequest request) throws SQLException;
 	String loginUser(HttpServletRequest request) throws SQLException;
 	void updateUser(HttpServletRequest request) throws SQLException;
+	void addToCart(HttpServletRequest req) throws SQLException;
 }
